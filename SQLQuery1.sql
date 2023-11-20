@@ -45,7 +45,14 @@ FROM Subjects, Lectures WHERE Subjects.id = Lectures.SubjectId
 GROUP BY Lectures.LectureRoom
 GO
 
---5. ¬ивести к≥льк≥сть студент≥в, €к≥ в≥дв≥дують лекц≥њ викладача УAndrii GoryanoiФ.
+--5. ¬ивести к≥льк≥сть групп, €к≥ в≥дв≥дують лекц≥њ викладача УAndrii GoryanoiФ.
+SELECT CONCAT (Teachers.Name, ' ', Teachers.Surname) as Teacher, 
+COUNT (Groups.Name) as CountGroups
+FROM Groups, GroupsLectures, Lectures, Teachers
+WHERE Teachers.Name = 'Andrii' and Teachers.Surname = 'Goryanoi' and
+Groups.id = GroupsLectures.GroupId and Lectures.id = GroupsLectures.LectureId
+and Teachers.id = Lectures.TeacherId
+GO
 
 --6. ¬ивести середню ставку викладач≥в факультету Computer Science.
 SELECT Faculties.Name, AVG(Teachers.Salary) as AverageSalary
